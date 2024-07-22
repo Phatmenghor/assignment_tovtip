@@ -20,7 +20,7 @@ interface PhoneNumberSelectProps {
 const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
   value,
   onChangeText,
-  placeholder = 'Type your phone number',
+  placeholder = 'XXX XXX XXX XXX',
 }) => {
   const defaultCountry = {
     cca2: 'KH',

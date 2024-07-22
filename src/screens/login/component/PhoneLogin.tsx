@@ -19,7 +19,7 @@ const PhoneLogin = () => {
       <PhoneNumberSelect
         value={phoneNumber}
         onChangeText={handlePhoneNumberChange}
-        placeholder="Enter your phone number"
+        placeholder="XXX XXX XXX XXX"
       />
 
       <TextInputComponent
