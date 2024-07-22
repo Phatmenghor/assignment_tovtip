@@ -1,33 +1,39 @@
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import React, {useState} from 'react';
+import {Text, View} from 'react-native';
 import {styles} from '../LoginStyles';
+import PhoneNumberSelect from '../../../components/PhoneNumberSelect';
+import TextInputComponent from '../../../components/TextInputComponent';
+import ButtonLoader from '../../../components/ButtonLoader';
 
 const PhoneLogin = () => {
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const handlePhoneNumberChange = (text: string) => {
+    setPhoneNumber(text);
+  };
+
+  function onSubmid() {}
   return (
     <View style={styles.conEmail}>
-      <TextInput
-        mode="outlined"
-        label="Email"
-        placeholder="Type your email"
-        right={<TextInput.Affix text="/100" />}
-        style={styles.input}
+      <PhoneNumberSelect
+        value={phoneNumber}
+        onChangeText={handlePhoneNumberChange}
+        placeholder="Enter your phone number"
       />
-      <TextInput
-        mode="outlined"
+
+      <TextInputComponent
+        value={password}
+        onChangeText={setPassword}
+        placeholder="Enter your password"
         label="Password"
-        placeholder="Type your password"
-        right={<TextInput.Affix text="/100" />} // Affix at the end
-        style={styles.input}
+        type="password"
       />
 
       <View style={styles.wrapBottom}>
         <Text style={styles.txtForgot}>Forgot password</Text>
       </View>
-
-      <TouchableOpacity style={styles.btnSubmid}>
-        <Text style={styles.txtForgot}>Continue</Text>
-      </TouchableOpacity>
+      <ButtonLoader onPress={onSubmid} />
     </View>
   );
 };

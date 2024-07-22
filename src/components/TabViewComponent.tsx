@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {TabView, SceneMap, TabBar, TabBarProps} from 'react-native-tab-view';
+import {colors} from '../constants/color';
 
 interface MyRoute {
   key: string;
@@ -80,11 +81,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   textTabView: {
-    color: '#a9a9a9',
     fontSize: 16,
   },
   textTabViewFocused: {
-    color: '#007bff',
     fontSize: 16,
   },
   textRightView: {
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   indicator: {
-    backgroundColor: '#007bff',
+    backgroundColor: colors.primaryColor,
     elevation: 10,
     height: 4,
     borderRadius: 4,

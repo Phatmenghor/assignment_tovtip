@@ -22,6 +22,7 @@ const LoginScreen: React.FC<Props> = ({}) => {
       component: PhoneLogin,
     },
   ];
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.txtHead}>Login</Text>

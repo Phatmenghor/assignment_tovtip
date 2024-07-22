@@ -18,21 +18,25 @@ const styles = StyleSheet.create({
   },
   input: {
     marginVertical: 10,
+    height: 56,
+    backgroundColor: colors.backgorund,
   },
   wrapBottom: {
     alignItems: 'center',
     marginTop: 16,
   },
   txtForgot: {
-    fontSize: 14,
+    fontSize: 16,
+    color: colors.primaryColor,
   },
-  btnSubmid: {
-    height: 44,
-    backgroundColor: colors.primaryColor,
+  labelContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 32,
-    borderRadius: 4,
+    marginBottom: 5,
+  },
+  labelText: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
