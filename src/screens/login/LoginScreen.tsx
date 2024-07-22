@@ -7,23 +7,25 @@ import {styles} from './LoginStyles';
 import {RootStackParamList} from '../../types/navigation';
 import PhoneLogin from './component/PhoneLogin';
 import EmailLogin from './component/EmailLogin';
+import TabViewComponent from '../../components/TabViewComponent';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen: React.FC<Props> = ({}) => {
   const screens = [
     {
-      title: 'First',
+      title: 'Email',
       component: EmailLogin,
     },
     {
-      title: 'Second',
+      title: 'Phone',
       component: PhoneLogin,
     },
   ];
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.txtHead}>Login</Text>
+      <TabViewComponent screens={screens} style={styles.tabView} />
     </SafeAreaView>
   );
 };
