@@ -7,8 +7,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   txtHead: {
-    fontSize: 34,
-    marginTop: 20,
+    fontSize: 32,
+    marginTop: 44,
+    marginHorizontal: 16,
   },
   tabView: {
     marginTop: 32,

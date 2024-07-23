@@ -4,7 +4,7 @@ import React from 'react';
 import {Text, SafeAreaView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {styles} from './LoginStyles';
-import {RootStackParamList} from '../../types/navigation';
+import {RootStackParamList} from '../../@types/navigation';
 import PhoneLogin from './component/PhoneLogin';
 import EmailLogin from './component/EmailLogin';
 import TabViewComponent from '../../components/TabViewComponent';

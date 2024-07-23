@@ -5,7 +5,8 @@ import PhoneNumberSelect from '../../../components/PhoneNumberSelect';
 import TextInputComponent from '../../../components/TextInputComponent';
 import ButtonLoader from '../../../components/ButtonLoader';
 import {loginWithPhone} from '../../../api/authService';
-import {storeToken} from '../../../utils/tokenManager';
+import {setToken} from '../../../utils/tokenManager';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 
 const PhoneLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -13,6 +14,7 @@ const PhoneLogin = () => {
   const [phoneError, setPhoneError] = useState<string | null>(null); // Separate error state for email
   const [passwordError, setPasswordError] = useState<string | null>(null); // Separate error state for password
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigation = useNavigation();
 
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
@@ -34,7 +36,13 @@ const PhoneLogin = () => {
     });
 
     if (response.message === 'Success') {
-      await storeToken(response.data.access_token);
+      await setToken(response.data.access_token);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'Profile'}],
+        }),
+      );
     } else if (response.includes('Phone number does not exist')) {
       setPhoneError(response);
     } else if (response.includes('Incorrect password')) {

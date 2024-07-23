@@ -1,3 +1,5 @@
+import {AuthResponse} from '../models/apiResponse';
+import {ApiError} from '../models/errorResponse';
 import api from './api';
 
 type TypeEmail = {
@@ -7,14 +9,14 @@ type TypeEmail = {
 
 export const loginWithEmail = async ({email, password}: TypeEmail) => {
   try {
-    const response = await api.post('/auth/login', {
+    const response = await api.post<AuthResponse>('/auth/login', {
       email,
       password,
     });
-    console.log('## ==response', response);
     return response.data;
   } catch (error: any) {
-    return error.response?.data?.message || 'An error occurred';
+    const apiError: ApiError = error.response?.data;
+    throw apiError;
   }
 };
 
@@ -30,7 +32,7 @@ export const loginWithPhone = async ({
   password,
 }: TypePhone) => {
   try {
-    const response = await api.post('/auth/login', {
+    const response = await api.post<AuthResponse>('/auth/login', {
       countryCode,
       phone,
       password,

@@ -1,24 +1,21 @@
-// tokenManager.ts
 import * as Keychain from 'react-native-keychain';
 
-// Store JWT token
-export const storeToken = async (token: string) => {
+// Set the token
+async function setToken(token: string): Promise<void> {
   try {
-    console.log('### ===credentialstoken', token);
-    await Keychain.setGenericPassword('jwt', token);
-    console.log('Token stored successfully');
+    await Keychain.setGenericPassword('token', token);
   } catch (error) {
     console.error('Failed to store token', error);
   }
-};
+}
 
-// Retrieve JWT token
-export const getToken = async (): Promise<string | null> => {
+// Get the token
+async function getToken(): Promise<string | null> {
   try {
     const credentials = await Keychain.getGenericPassword();
-    console.log('### ===credentials', credentials);
     if (credentials) {
-      return credentials.password; // This is the token
+      console.log('Token retrieved successfully');
+      return credentials.password; // The token is stored in `password`
     } else {
       return null;
     }
@@ -26,14 +23,16 @@ export const getToken = async (): Promise<string | null> => {
     console.error('Failed to retrieve token', error);
     return null;
   }
-};
+}
 
-// Remove JWT token
-export const removeToken = async () => {
+// Clear the token
+async function clearToken(): Promise<void> {
   try {
     await Keychain.resetGenericPassword();
-    console.log('Token removed successfully');
+    console.log('Token cleared successfully');
   } catch (error) {
-    console.error('Failed to remove token', error);
+    console.error('Failed to clear token', error);
   }
-};
+}
+
+export {setToken, getToken, clearToken};

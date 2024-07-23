@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../types/navigation';
+import {RootStackParamList} from '../@types/navigation';
 import LoginScreen from '../screens/login/LoginScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import {useEffect, useState} from 'react';

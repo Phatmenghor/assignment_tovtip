@@ -4,7 +4,9 @@ import {styles} from '../LoginStyles';
 import ButtonLoader from '../../../components/ButtonLoader';
 import TextInputComponent from '../../../components/TextInputComponent';
 import {loginWithEmail} from '../../../api/authService';
-import {getToken, storeToken} from '../../../utils/tokenManager';
+import {setToken} from '../../../utils/tokenManager';
+import {ApiError} from '../../../models/errorResponse';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 
 const EmailLogin = () => {
   const [password, setPassword] = useState<string>('Pwd@#124!');
@@ -12,19 +14,30 @@ const EmailLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<string | null>(null); // Separate error state for email
   const [passwordError, setPasswordError] = useState<string | null>(null); // Separate error state for password
+  const navigation = useNavigation();
 
   async function onSubmid() {
     setEmailError(null);
     setPasswordError(null);
     setIsLoading(true);
-    const response = await loginWithEmail({email, password});
-    if (response.message === 'Success') {
-      await storeToken(response.data.access_token);
-    } else if (response.includes('Email does not exist')) {
-      setEmailError(response);
-    } else if (response.includes('Incorrect password')) {
-      setPasswordError(response);
+    try {
+      const response = await loginWithEmail({email, password});
+      await setToken(response.data.access_token);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'Profile'}],
+        }),
+      );
+    } catch (error) {
+      const responseError = error as ApiError;
+      if (responseError.message.includes('Email does not exist')) {
+        setEmailError(responseError.message);
+      } else if (responseError.message.includes('Incorrect password')) {
+        setPasswordError(responseError.message);
+      }
     }
+
     setIsLoading(false);
   }
 
@@ -35,10 +48,6 @@ const EmailLogin = () => {
   const handlePassChange = (text: string) => {
     setPassword(text);
   };
-
-  async function onPress() {
-    const res = await getToken();
-  }
 
   return (
     <View style={styles.conEmail}>
@@ -62,7 +71,7 @@ const EmailLogin = () => {
         style={styles.wrapEmail}
       />
 
-      <Pressable onPress={onPress} style={styles.wrapBottom}>
+      <Pressable style={styles.wrapBottom}>
         <Text style={styles.txtForgot}>Forgot password</Text>
       </Pressable>
 
