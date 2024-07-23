@@ -3,6 +3,8 @@ const colors = {
   backgorund: 'rgb(248,249,251)',
   textColor: 'rgb(45, 45, 45)',
   disableText: 'rgb(217, 217, 217)',
+  black: 'black',
+  white: 'white',
 };
 
 export {colors};

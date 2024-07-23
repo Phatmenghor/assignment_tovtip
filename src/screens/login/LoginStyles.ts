@@ -4,8 +4,7 @@ import {colors} from '../../constants/color';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    flexGrow: 1,
+    backgroundColor: colors.white,
   },
   txtHead: {
     fontSize: 32,
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 16,
-    color: 'black',
+    color: colors.black,
   },
   wrapEmail: {
     marginTop: 16,

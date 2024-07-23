@@ -1,5 +1,3 @@
-// src/screens/ProfileScreen.tsx
-
 import React, {useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, Alert, TouchableOpacity} from 'react-native';
 import {styles} from './ProfileStyles';
@@ -10,6 +8,7 @@ import {getUserProfile} from '../../api/userService';
 import {User} from '../../models/apiResponse';
 import {clearToken} from '../../utils/tokenManager';
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {colors} from '../../constants/color';
 
 const ProfileScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,7 +22,6 @@ const ProfileScreen: React.FC = () => {
   async function fetchData() {
     setIsLoading(true);
     const response = await getUserProfile();
-    console.log('## ===response', response);
     setUserData(response);
     setIsLoading(false);
   }
@@ -53,6 +51,7 @@ const ProfileScreen: React.FC = () => {
       {cancelable: false},
     );
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.flexCon}>
@@ -72,11 +71,11 @@ const ProfileScreen: React.FC = () => {
                 </View>
               </View>
               <View style={styles.emailDisPlay}>
-                <Icon name={'email'} size={24} color="black" />
+                <Icon name={'email'} size={24} color={colors.black} />
                 <Text style={styles.txtDisplay}>{userData?.email}</Text>
               </View>
               <View style={styles.emailDisPlay}>
-                <Icon name={'email'} size={24} color="black" />
+                <Icon name={'email'} size={24} color={colors.black} />
                 <Text
                   style={
                     styles.txtDisplay

@@ -20,14 +20,6 @@ const PhoneLogin = () => {
   const [selectedCountry, setSelectedCountry] =
     useState<CountryModel>(countryCambodia);
 
-  const handlePhoneNumberChange = (text: string) => {
-    setPhoneNumber(text);
-  };
-
-  const handlePassChange = (text: string) => {
-    setPassword(text);
-  };
-
   async function onSubmid() {
     setPhoneError(null);
     setPasswordError(null);
@@ -67,9 +59,10 @@ const PhoneLogin = () => {
   return (
     <View style={styles.conEmail}>
       <ScrollView bounces={false}>
+        {/* Phone number Input */}
         <PhoneNumberSelect
           value={phoneNumber}
-          onChangeText={handlePhoneNumberChange}
+          onChangeText={setPhoneNumber}
           placeholder="XXX XXX XXX XXX"
           style={styles.wrapPhone}
           error={phoneError}
@@ -77,9 +70,10 @@ const PhoneLogin = () => {
           onSelectCountry={handleCountrySelect}
         />
 
+        {/* Password Input */}
         <TextInputComponent
           value={password}
-          onChangeText={handlePassChange}
+          onChangeText={setPassword}
           placeholder="Enter your password"
           label="Password"
           type="password"
@@ -91,6 +85,7 @@ const PhoneLogin = () => {
           <Text style={styles.txtForgot}>Forgot password</Text>
         </View>
       </ScrollView>
+
       <ButtonLoader
         onPress={onSubmid}
         disabled={!phoneNumber.trim() || !password.trim()}

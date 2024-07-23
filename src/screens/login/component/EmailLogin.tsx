@@ -45,20 +45,13 @@ const EmailLogin = () => {
     setIsLoading(false);
   }
 
-  function handleEmailChange(text: string) {
-    setEmail(text);
-  }
-
-  function handlePassChange(text: string) {
-    setPassword(text);
-  }
-
   return (
     <View style={styles.conEmail}>
       <ScrollView bounces={false}>
+        {/* Email Input */}
         <TextInputComponent
           value={email}
-          onChangeText={handleEmailChange}
+          onChangeText={setEmail}
           placeholder="Enter your email"
           label="Email"
           type="email"
@@ -66,9 +59,10 @@ const EmailLogin = () => {
           style={styles.wrapEmail}
         />
 
+        {/* Password Input */}
         <TextInputComponent
           value={password}
-          onChangeText={handlePassChange}
+          onChangeText={setPassword}
           placeholder="Enter your password"
           label="Password"
           type="password"
@@ -79,6 +73,7 @@ const EmailLogin = () => {
           <Text style={styles.txtForgot}>Forgot password</Text>
         </View>
       </ScrollView>
+
       <ButtonLoader
         onPress={onSubmid}
         loading={isLoading}
