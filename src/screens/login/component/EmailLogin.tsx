@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {styles} from '../LoginStyles';
 import ButtonLoader from '../../../components/ButtonLoader';
 import TextInputComponent from '../../../components/TextInputComponent';
@@ -9,16 +9,21 @@ import {ApiError} from '../../../models/errorResponse';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 
 const EmailLogin = () => {
-  const [password, setPassword] = useState<string>('Pwd@#124!');
-  const [email, setEmail] = useState<string>('dummy@gmail.com');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<string | null>(null); // Separate error state for email
-  const [passwordError, setPasswordError] = useState<string | null>(null); // Separate error state for password
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const navigation = useNavigation();
 
   async function onSubmid() {
     setEmailError(null);
     setPasswordError(null);
+
+    callToApi();
+  }
+
+  async function callToApi() {
     setIsLoading(true);
     try {
       const response = await loginWithEmail({email, password});
@@ -37,44 +42,43 @@ const EmailLogin = () => {
         setPasswordError(responseError.message);
       }
     }
-
     setIsLoading(false);
   }
 
-  const handleEmailChange = (text: string) => {
+  function handleEmailChange(text: string) {
     setEmail(text);
-  };
+  }
 
-  const handlePassChange = (text: string) => {
+  function handlePassChange(text: string) {
     setPassword(text);
-  };
+  }
 
   return (
     <View style={styles.conEmail}>
-      <TextInputComponent
-        value={email}
-        onChangeText={handleEmailChange}
-        placeholder="Enter your email"
-        label="Email"
-        type="email"
-        error={emailError}
-        style={styles.wrapEmail}
-      />
+      <ScrollView bounces={false}>
+        <TextInputComponent
+          value={email}
+          onChangeText={handleEmailChange}
+          placeholder="Enter your email"
+          label="Email"
+          type="email"
+          error={emailError}
+          style={styles.wrapEmail}
+        />
 
-      <TextInputComponent
-        value={password}
-        onChangeText={handlePassChange}
-        placeholder="Enter your password"
-        label="Password"
-        type="password"
-        error={passwordError}
-        style={styles.wrapEmail}
-      />
-
-      <Pressable style={styles.wrapBottom}>
-        <Text style={styles.txtForgot}>Forgot password</Text>
-      </Pressable>
-
+        <TextInputComponent
+          value={password}
+          onChangeText={handlePassChange}
+          placeholder="Enter your password"
+          label="Password"
+          type="password"
+          error={passwordError}
+          style={styles.wrapEmail}
+        />
+        <View style={styles.wrapBottom}>
+          <Text style={styles.txtForgot}>Forgot password</Text>
+        </View>
+      </ScrollView>
       <ButtonLoader
         onPress={onSubmid}
         loading={isLoading}

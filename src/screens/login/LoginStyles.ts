@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    flexGrow: 1,
   },
   txtHead: {
     fontSize: 32,
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
   wrapBottom: {
     alignItems: 'center',
     marginTop: 16,
+    marginBottom: 44,
   },
   txtForgot: {
     fontSize: 16,

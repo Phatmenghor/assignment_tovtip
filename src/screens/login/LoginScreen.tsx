@@ -1,5 +1,3 @@
-// src/screens/LoginScreen.tsx
-
 import React from 'react';
 import {Text, SafeAreaView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';

@@ -11,6 +11,7 @@ import {
 import CountryPicker from 'react-native-country-picker-modal';
 import {colors} from '../constants/color';
 import {HelperText} from 'react-native-paper';
+import {CountryModel} from '../constants/codeCountry';
 
 interface PhoneNumberSelectProps {
   value: string;
@@ -18,6 +19,8 @@ interface PhoneNumberSelectProps {
   placeholder?: string;
   error?: string | null;
   style?: object;
+  selectedCountry: CountryModel;
+  onSelectCountry: (country: CountryModel) => void;
 }
 
 const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
@@ -26,21 +29,14 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
   placeholder = 'XXX XXX XXX XXX',
   error = null,
   style,
+  selectedCountry,
+  onSelectCountry,
 }) => {
-  const defaultCountry = {
-    cca2: 'KH',
-    callingCode: '855',
-    flag: 'KH',
-    name: 'Cambodia',
-    region: 'Asia',
-    subregion: 'South-Eastern Asia',
-  };
-  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const [visible, setVisible] = useState(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const onSelect = (country: any) => {
-    setSelectedCountry(country);
+    onSelectCountry(country);
     setVisible(false);
   };
 
@@ -84,17 +80,18 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor={colors.textColor}
+          blurOnSubmit={false}
         />
       </View>
 
       <CountryPicker
         visible={visible}
-        withFilter={true} // Enable filter
-        withAlphaFilter={true} // Enable alphabetical filter
-        withCallingCode={true} // Display calling codes
-        withEmoji={true} // Display emojis with flags
-        withFlag={true} // Display flags
-        withCountryNameButton={true} // Do not display country name as a button
+        withFilter={true}
+        withAlphaFilter={true}
+        withCallingCode={true}
+        withEmoji={true}
+        withFlag={true}
+        withCountryNameButton={true}
         onSelect={onSelect}
         onClose={() => setVisible(false)}
         containerButtonStyle={styles.button}
@@ -124,7 +121,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderRadius: 5,
-    height: 54,
     alignItems: 'center',
     backgroundColor: colors.backgorund,
   },
@@ -133,6 +129,8 @@ const styles = StyleSheet.create({
     color: colors.textColor,
   },
   textInput: {
+    height: 54,
+
     paddingLeft: 8,
     paddingRight: 16,
     fontSize: 14,
@@ -142,6 +140,8 @@ const styles = StyleSheet.create({
   btnSelect: {
     marginHorizontal: 16,
     flexDirection: 'row',
+    height: 54,
+    alignItems: 'center',
   },
   line: {
     width: 1,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   focused: {
     borderColor: colors.primaryColor,
-    borderWidth: 2,
+    borderWidth: 1,
   },
   unfocused: {
     borderColor: colors.disableText,

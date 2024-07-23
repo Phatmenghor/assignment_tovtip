@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {styles} from '../LoginStyles';
 import PhoneNumberSelect from '../../../components/PhoneNumberSelect';
 import TextInputComponent from '../../../components/TextInputComponent';
@@ -7,14 +7,18 @@ import ButtonLoader from '../../../components/ButtonLoader';
 import {loginWithPhone} from '../../../api/authService';
 import {setToken} from '../../../utils/tokenManager';
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {ApiError} from '../../../models/errorResponse';
+import {countryCambodia, CountryModel} from '../../../constants/codeCountry';
 
 const PhoneLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [phoneError, setPhoneError] = useState<string | null>(null); // Separate error state for email
-  const [passwordError, setPasswordError] = useState<string | null>(null); // Separate error state for password
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
+  const [selectedCountry, setSelectedCountry] =
+    useState<CountryModel>(countryCambodia);
 
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
@@ -27,15 +31,17 @@ const PhoneLogin = () => {
   async function onSubmid() {
     setPhoneError(null);
     setPasswordError(null);
+    callToApi();
+  }
 
+  async function callToApi() {
     setIsLoading(true);
-    const response = await loginWithPhone({
-      phone: phoneNumber,
-      password,
-      countryCode: '+855',
-    });
-
-    if (response.message === 'Success') {
+    try {
+      const response = await loginWithPhone({
+        phone: phoneNumber,
+        password,
+        countryCode: selectedCountry.callingCode[0],
+      });
       await setToken(response.data.access_token);
       navigation.dispatch(
         CommonActions.reset({
@@ -43,21 +49,31 @@ const PhoneLogin = () => {
           routes: [{name: 'Profile'}],
         }),
       );
-    } else if (response.includes('Phone number does not exist')) {
-      setPhoneError(response);
-    } else if (response.includes('Incorrect password')) {
-      setPasswordError(response);
+    } catch (error) {
+      const responseError = error as ApiError;
+      if (responseError.message.includes('Phone number does not exist')) {
+        setPhoneError(responseError.message);
+      } else if (responseError.message.includes('Incorrect password')) {
+        setPasswordError(responseError.message);
+      }
     }
     setIsLoading(false);
   }
+
+  function handleCountrySelect(country: CountryModel) {
+    setSelectedCountry(country);
+  }
+
   return (
-    <View style={styles.conEmail}>
+    <ScrollView style={styles.conEmail}>
       <PhoneNumberSelect
         value={phoneNumber}
         onChangeText={handlePhoneNumberChange}
         placeholder="XXX XXX XXX XXX"
         style={styles.wrapPhone}
         error={phoneError}
+        selectedCountry={selectedCountry}
+        onSelectCountry={handleCountrySelect}
       />
 
       <TextInputComponent
@@ -78,7 +94,7 @@ const PhoneLogin = () => {
         disabled={!phoneNumber.trim() || !password.trim()}
         loading={isLoading}
       />
-    </View>
+    </ScrollView>
   );
 };
 

@@ -40,6 +40,7 @@ export const loginWithPhone = async ({
     console.log('## ==response', response);
     return response.data;
   } catch (error: any) {
-    return error.response?.data?.message || 'An error occurred';
+    const apiError: ApiError = error.response?.data;
+    throw apiError;
   }
 };
