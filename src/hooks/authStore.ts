@@ -1,21 +1,40 @@
-import {useState, useEffect} from 'react';
-import {storeToken, getToken} from '../utils/storage';
+import {useState} from 'react';
+import {loginWithEmail, loginWithPhone} from '../api/authService';
 
 export const useAuth = () => {
-  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadToken = async () => {
-      const savedToken = await getToken();
-      setToken(savedToken);
-    };
-    loadToken();
-  }, []);
-
-  const saveToken = async (newToken: string) => {
-    setToken(newToken);
-    await storeToken(newToken);
+  const loginEmail = async (email: string, password: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await loginWithEmail(email, password);
+      console.log('### ===response', response);
+      return response;
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return {token, saveToken};
+  const loginPhoneNumber = async (
+    phone: string,
+    countryCode: string,
+    password: string,
+  ) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await loginWithPhone(countryCode, phone, password);
+      return response;
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {loginEmail, loginPhoneNumber, loading, error};
 };

@@ -10,17 +10,22 @@ import {
 } from 'react-native';
 import CountryPicker from 'react-native-country-picker-modal';
 import {colors} from '../constants/color';
+import {HelperText} from 'react-native-paper';
 
 interface PhoneNumberSelectProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
+  error?: string | null;
+  style?: object;
 }
 
 const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
   value,
   onChangeText,
   placeholder = 'XXX XXX XXX XXX',
+  error = null,
+  style,
 }) => {
   const defaultCountry = {
     cca2: 'KH',
@@ -44,9 +49,12 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View
-        style={[styles.wrapDis, isFocused ? styles.focused : styles.unfocused]}>
+        style={[
+          styles.wrapDis,
+          error ? styles.error : isFocused ? styles.focused : styles.unfocused,
+        ]}>
         <TouchableOpacity style={styles.btnSelect} onPress={openCountryPicker}>
           <Image
             style={styles.sizeImg}
@@ -59,18 +67,23 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
         <View
           style={[
             styles.line,
-            isFocused ? styles.lineFocus : styles.lineUnfocused,
+            error
+              ? styles.errorLine
+              : isFocused
+              ? styles.lineFocus
+              : styles.lineUnfocused,
           ]}
         />
         <TextInput
+          selectionColor={colors.primaryColor}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           style={styles.textInput}
           value={value}
+          keyboardType="number-pad"
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor={colors.textColor}
-          cursorColor={colors.primaryColor}
         />
       </View>
 
@@ -87,6 +100,12 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
         containerButtonStyle={styles.button}
         filterPlaceholder="Search..."
       />
+
+      {error && (
+        <HelperText type="error" visible={!!error} style={styles.errorText}>
+          {error}
+        </HelperText>
+      )}
     </View>
   );
 };
@@ -96,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   container: {
-    marginTop: 24,
+    marginTop: 8,
   },
   button: {
     display: 'none',
@@ -137,7 +156,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   unfocused: {
-    borderColor: colors.textColor,
+    borderColor: colors.disableText,
     borderWidth: 1,
   },
   lineFocus: {
@@ -145,7 +164,21 @@ const styles = StyleSheet.create({
     width: 2,
   },
   lineUnfocused: {
-    backgroundColor: colors.textColor,
+    backgroundColor: colors.disableText,
+  },
+
+  errorText: {
+    fontSize: 12,
+    paddingHorizontal: 0,
+    marginTop: 4,
+  },
+  error: {
+    borderColor: 'red',
+    borderWidth: 1,
+  },
+  errorLine: {
+    backgroundColor: 'red',
+    width: 1,
   },
 });
 

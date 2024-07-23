@@ -3175,6 +3175,7 @@ __metadata:
     react-native: 0.74.3
     react-native-country-picker-modal: ^2.0.0
     react-native-flags: ^1.0.0
+    react-native-keychain: ^8.2.0
     react-native-pager-view: ^6.3.3
     react-native-paper: ^5.12.3
     react-native-reanimated: ^3.14.0
@@ -8345,6 +8346,13 @@ __metadata:
   version: 1.0.0
   resolution: "react-native-flags@npm:1.0.0"
   checksum: c6d36aa9307714b7b22fe1546c65a009ca815f00c78be943fbffce4b8303a47b416bdd830d1e4a5deb4d283b2c208319524c07acbed5661043afc9464f2291a0
+  languageName: node
+  linkType: hard
+
+"react-native-keychain@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "react-native-keychain@npm:8.2.0"
+  checksum: 4c4d5331013b8ab17c21120a2388e1e82aa30586738c0a34ed9dcffb6ce12454125ddb690951cad5563c9290b060eb68ccffa9477650cc3a5ddc347696b5d4ef
   languageName: node
   linkType: hard
 

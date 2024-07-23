@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
   },
+  wrapEmail: {
+    marginTop: 16,
+  },
+  wrapPhone: {
+    marginTop: 22,
+  },
 });
 
 export {styles};
