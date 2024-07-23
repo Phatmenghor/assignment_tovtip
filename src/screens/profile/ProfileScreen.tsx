@@ -55,44 +55,47 @@ const ProfileScreen: React.FC = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <View style={styles.flexCon}>
-          <View style={styles.wrapBody}>
-            <Text style={styles.titlePF}>Profile</Text>
-            <View style={styles.rowName}>
-              <View style={styles.viewDisPlay}>
-                <Text style={styles.txtDisplay}>{userData?.firstName}</Text>
+      <View style={styles.flexCon}>
+        <View style={styles.wrapBody}>
+          <Text style={styles.titlePF}>Profile</Text>
+
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <View style={styles.flexCon}>
+              <View style={styles.rowName}>
+                <View style={styles.viewDisPlay}>
+                  <Text style={styles.txtDisplay}>{userData?.firstName}</Text>
+                </View>
+                <View style={styles.viewDisPlay}>
+                  <Text style={styles.txtDisplay}>{userData?.lastName}</Text>
+                </View>
               </View>
-              <View style={styles.viewDisPlay}>
-                <Text style={styles.txtDisplay}>{userData?.lastName}</Text>
+              <View style={styles.emailDisPlay}>
+                <Icon name={'email'} size={24} color="black" />
+                <Text style={styles.txtDisplay}>{userData?.email}</Text>
+              </View>
+              <View style={styles.emailDisPlay}>
+                <Icon name={'email'} size={24} color="black" />
+                <Text
+                  style={
+                    styles.txtDisplay
+                  }>{`+${userData?.countryCode} ${userData?.phone}`}</Text>
+              </View>
+              <View style={styles.rowGen}>
+                <Text style={styles.txtGen}>Gender</Text>
+                <View style={styles.wrapGender}>
+                  <DisplayGender gender="Male" selected={userData?.gender} />
+                  <DisplayGender gender="Female" selected={userData?.gender} />
+                </View>
               </View>
             </View>
-            <View style={styles.emailDisPlay}>
-              <Icon name={'email'} size={24} color="black" />
-              <Text style={styles.txtDisplay}>{userData?.email}</Text>
-            </View>
-            <View style={styles.emailDisPlay}>
-              <Icon name={'email'} size={24} color="black" />
-              <Text
-                style={
-                  styles.txtDisplay
-                }>{`+${userData?.countryCode} ${userData?.phone}`}</Text>
-            </View>
-            <View style={styles.rowGen}>
-              <Text style={styles.txtGen}>Gender</Text>
-              <View style={styles.wrapGender}>
-                <DisplayGender gender="Male" selected={userData?.gender} />
-                <DisplayGender gender="Female" selected={userData?.gender} />
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity onPress={handleLogout} style={styles.btnLogout}>
-            <Text style={styles.txtLog}>Log Out</Text>
-          </TouchableOpacity>
+          )}
         </View>
-      )}
+        <TouchableOpacity onPress={handleLogout} style={styles.btnLogout}>
+          <Text style={styles.txtLog}>Log Out</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

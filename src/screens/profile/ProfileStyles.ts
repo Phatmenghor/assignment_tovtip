@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 32,
     marginHorizontal: 16,
+    marginBottom: 16,
   },
   txtLog: {
     fontSize: 16,
