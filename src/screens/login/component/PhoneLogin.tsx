@@ -65,36 +65,38 @@ const PhoneLogin = () => {
   }
 
   return (
-    <ScrollView style={styles.conEmail}>
-      <PhoneNumberSelect
-        value={phoneNumber}
-        onChangeText={handlePhoneNumberChange}
-        placeholder="XXX XXX XXX XXX"
-        style={styles.wrapPhone}
-        error={phoneError}
-        selectedCountry={selectedCountry}
-        onSelectCountry={handleCountrySelect}
-      />
+    <View style={styles.conEmail}>
+      <ScrollView bounces={false}>
+        <PhoneNumberSelect
+          value={phoneNumber}
+          onChangeText={handlePhoneNumberChange}
+          placeholder="XXX XXX XXX XXX"
+          style={styles.wrapPhone}
+          error={phoneError}
+          selectedCountry={selectedCountry}
+          onSelectCountry={handleCountrySelect}
+        />
 
-      <TextInputComponent
-        value={password}
-        onChangeText={handlePassChange}
-        placeholder="Enter your password"
-        label="Password"
-        type="password"
-        error={passwordError}
-        style={styles.wrapEmail}
-      />
+        <TextInputComponent
+          value={password}
+          onChangeText={handlePassChange}
+          placeholder="Enter your password"
+          label="Password"
+          type="password"
+          error={passwordError}
+          style={styles.wrapEmail}
+        />
 
-      <View style={styles.wrapBottom}>
-        <Text style={styles.txtForgot}>Forgot password</Text>
-      </View>
+        <View style={styles.wrapBottom}>
+          <Text style={styles.txtForgot}>Forgot password</Text>
+        </View>
+      </ScrollView>
       <ButtonLoader
         onPress={onSubmid}
         disabled={!phoneNumber.trim() || !password.trim()}
         loading={isLoading}
       />
-    </ScrollView>
+    </View>
   );
 };
 

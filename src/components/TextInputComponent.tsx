@@ -1,10 +1,10 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {HelperText, TextInput} from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Example for email icon
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../constants/color';
 
 interface PasswordInputProps {
@@ -13,7 +13,7 @@ interface PasswordInputProps {
   placeholder?: string;
   label?: string;
   style?: object;
-  type?: 'email' | 'password'; // Type to determine if it's an email or password
+  type?: 'email' | 'password';
   error?: string | null;
 }
 
@@ -39,6 +39,8 @@ const TextInputComponent: React.FC<PasswordInputProps> = ({
         secureTextEntry={type === 'password' && !isPasswordVisible}
         value={value}
         onChangeText={onChangeText}
+        keyboardType={type === 'email' ? 'email-address' : 'default'}
+        autoCapitalize="none"
         theme={{
           colors: {
             primary: error ? 'red' : colors.primaryColor,
@@ -73,9 +75,9 @@ const TextInputComponent: React.FC<PasswordInputProps> = ({
                 />
               )}
             />
-          ) : null // No right icon for email
+          ) : null
         }
-        style={[styles.input, style]} // Merge custom style with default
+        style={[styles.input, style]}
       />
 
       {error && (
