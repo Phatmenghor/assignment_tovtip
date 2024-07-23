@@ -14,7 +14,6 @@ async function getToken(): Promise<string | null> {
   try {
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
-      console.log('Token retrieved successfully');
       return credentials.password; // The token is stored in `password`
     } else {
       return null;

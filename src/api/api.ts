@@ -6,7 +6,7 @@ const api = axios.create({
   timeout: 100000,
   headers: {
     accept: 'application/json',
-    apikey: Config.apikey,
+    apikey: Config.APIKEY,
     'x-platform': 'android',
   },
 });
