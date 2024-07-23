@@ -5,6 +5,7 @@ const colors = {
   disableText: 'rgb(217, 217, 217)',
   black: 'black',
   white: 'white',
+  red: 'red',
 };
 
 export {colors};

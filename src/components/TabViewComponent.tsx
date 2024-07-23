@@ -75,10 +75,10 @@ const TabViewComponent: React.FC<TabViewProps> = ({screens, style}) => {
 const styles = StyleSheet.create({
   line: {
     height: 1,
-    backgroundColor: '#dcdcdc',
+    backgroundColor: colors.disableText,
   },
   wrapTab: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   textTabView: {
     fontSize: 16,
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   },
   textRightView: {
     marginLeft: 2,
-    color: '#a9a9a9',
+    color: colors.disableText,
     fontSize: 14,
     marginBottom: 1,
   },
   tabBar: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
     elevation: 0,
     marginHorizontal: 16,
   },

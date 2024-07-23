@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {HelperText, TextInput} from 'react-native-paper';
@@ -43,17 +42,17 @@ const TextInputComponent: React.FC<PasswordInputProps> = ({
         autoCapitalize="none"
         theme={{
           colors: {
-            primary: error ? 'red' : colors.primaryColor,
+            primary: error ? colors.red : colors.primaryColor,
           },
         }}
         outlineStyle={{
-          borderColor: error ? 'red' : colors.disableText,
+          borderColor: error ? colors.red : colors.disableText,
         }}
         left={
           <TextInput.Icon
             icon={() => (
               <Icon
-                name={type === 'email' ? 'email' : 'lock'} // Change icon based on type
+                name={type === 'email' ? 'email' : 'lock'}
                 size={24}
                 color="black"
                 style={styles.icon}
@@ -69,7 +68,7 @@ const TextInputComponent: React.FC<PasswordInputProps> = ({
                 <MaterialIcon
                   name={isPasswordVisible ? 'visibility-off' : 'visibility'}
                   size={24}
-                  color="black"
+                  color={colors.black}
                   onPress={togglePasswordVisibility}
                   style={styles.icon}
                 />

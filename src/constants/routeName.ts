@@ -1,6 +1,6 @@
 const routeName = {
-  Login: 'Login',
-  Profile: 'Profile',
+  login: 'Login',
+  profile: 'Profile',
 };
 
 export {routeName};

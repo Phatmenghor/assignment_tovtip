@@ -6,7 +6,6 @@ type TypeEmail = {
   email: string;
   password: string;
 };
-
 export const loginWithEmail = async ({email, password}: TypeEmail) => {
   try {
     const response = await api.post<AuthResponse>('/auth/login', {
@@ -25,7 +24,6 @@ type TypePhone = {
   phone: string;
   password: string;
 };
-
 export const loginWithPhone = async ({
   countryCode,
   phone,
@@ -37,7 +35,6 @@ export const loginWithPhone = async ({
       phone,
       password,
     });
-    console.log('## ==response', response);
     return response.data;
   } catch (error: any) {
     const apiError: ApiError = error.response?.data;

@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, {useState} from 'react';
 import {
   View,
@@ -130,7 +129,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 54,
-
     paddingLeft: 8,
     paddingRight: 16,
     fontSize: 14,
@@ -166,18 +164,17 @@ const styles = StyleSheet.create({
   lineUnfocused: {
     backgroundColor: colors.disableText,
   },
-
   errorText: {
     fontSize: 12,
     paddingHorizontal: 0,
     marginTop: 4,
   },
   error: {
-    borderColor: 'red',
+    borderColor: colors.red,
     borderWidth: 1,
   },
   errorLine: {
-    backgroundColor: 'red',
+    backgroundColor: colors.red,
     width: 1,
   },
 });

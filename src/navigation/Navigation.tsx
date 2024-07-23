@@ -10,7 +10,7 @@ import {routeName} from '../constants/routeName';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
-  const [initialRoute, setInitialRoute] = useState('Login');
+  const [initialRoute, setInitialRoute] = useState(routeName.login);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -21,9 +21,9 @@ const Navigation = () => {
     setLoading(true);
     const token = await getToken();
     if (token) {
-      setInitialRoute('Profile');
+      setInitialRoute(routeName.profile);
     } else {
-      setInitialRoute('Login');
+      setInitialRoute(routeName.login);
     }
     setLoading(false);
   };
@@ -37,8 +37,8 @@ const Navigation = () => {
       <Stack.Navigator
         initialRouteName={initialRoute}
         screenOptions={{headerShown: false}}>
-        <Stack.Screen name={routeName.Login} component={LoginScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name={routeName.login} component={LoginScreen} />
+        <Stack.Screen name={routeName.profile} component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,9 +11,9 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {colors} from '../constants/color';
 
 interface ButtonLoaderProps extends TouchableOpacityProps {
-  loading?: boolean; // Indicates whether the button is in a loading state
+  loading?: boolean;
   disabled?: boolean;
-  onPress: () => void; // Function to be called when the button is pressed
+  onPress: () => void;
 }
 
 const ButtonLoader: React.FC<ButtonLoaderProps> = ({

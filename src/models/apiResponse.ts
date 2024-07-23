@@ -1,5 +1,3 @@
-// src/types/apiResponse.ts
-
 export interface User {
   id: number;
   firstName: string;
