@@ -3162,7 +3162,6 @@ __metadata:
     react: 18.2.0
     react-native: 0.74.3
     react-native-country-picker-modal: ^2.0.0
-    react-native-flags: ^1.0.0
     react-native-keychain: ^8.2.0
     react-native-pager-view: ^6.3.3
     react-native-paper: ^5.12.3
@@ -8311,13 +8310,6 @@ __metadata:
     react-native: "*"
     react-native-web: "*"
   checksum: e808169b45c5e8021462a6914f7c3fb28e84ae8d58097ed7b3418fee41efa2bc44012abc09ff3f3bd6ee14427b9efe1b0f8d8b3a19cc01325b2f2cd0137d5d00
-  languageName: node
-  linkType: hard
-
-"react-native-flags@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "react-native-flags@npm:1.0.0"
-  checksum: c6d36aa9307714b7b22fe1546c65a009ca815f00c78be943fbffce4b8303a47b416bdd830d1e4a5deb4d283b2c208319524c07acbed5661043afc9464f2291a0
   languageName: node
   linkType: hard
 
