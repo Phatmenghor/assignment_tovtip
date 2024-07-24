@@ -10,20 +10,22 @@ import {CommonActions, useNavigation} from '@react-navigation/native';
 import {ApiError} from '../../../models/errorResponse';
 import {countryCambodia, CountryModel} from '../../../constants/codeCountry';
 import {routeName} from '../../../constants/routeName';
+import ShowToast from '../../../components/ShowToast';
 
 const PhoneLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [phoneError, setPhoneError] = useState<string | null>(null);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
   const [selectedCountry, setSelectedCountry] =
     useState<CountryModel>(countryCambodia);
 
   async function onSubmid() {
-    setPhoneError(null);
-    setPasswordError(null);
+    setPhoneError(false);
+    setPasswordError(false);
+
     callToApi();
   }
 
@@ -35,6 +37,11 @@ const PhoneLogin = () => {
         password,
         countryCode: selectedCountry.callingCode[0],
       });
+      ShowToast(
+        'success',
+        'Login Successful',
+        'You have successfully logged in!',
+      );
       await setToken(response.data.access_token);
       navigation.dispatch(
         CommonActions.reset({
@@ -45,9 +52,11 @@ const PhoneLogin = () => {
     } catch (error) {
       const responseError = error as ApiError;
       if (responseError.message.includes('Phone number does not exist')) {
-        setPhoneError(responseError.message);
+        setPhoneError(true);
+        ShowToast('error', 'Login Failed', `${responseError.message}`);
       } else if (responseError.message.includes('Incorrect password')) {
-        setPasswordError(responseError.message);
+        setPasswordError(true);
+        ShowToast('error', 'Login Failed', `${responseError.message}`);
       }
     }
     setIsLoading(false);
@@ -57,13 +66,18 @@ const PhoneLogin = () => {
     setSelectedCountry(country);
   }
 
+  const handlePhoneChange = (text: string) => {
+    const numericText = text.replace(/[^0-9]/g, '');
+    setPhoneNumber(numericText);
+  };
+
   return (
     <View style={styles.conEmail}>
       <ScrollView bounces={false}>
         {/* Phone number Input */}
         <PhoneNumberSelect
           value={phoneNumber}
-          onChangeText={setPhoneNumber}
+          onChangeText={handlePhoneChange}
           placeholder="XXX XXX XXX XXX"
           style={styles.wrapPhone}
           error={phoneError}

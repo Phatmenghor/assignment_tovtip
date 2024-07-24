@@ -6,6 +6,7 @@ import ProfileScreen from '../screens/profile/ProfileScreen';
 import {useEffect, useState} from 'react';
 import {getToken} from '../utils/tokenManager';
 import {routeName} from '../constants/routeName';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,7 @@ const Navigation = () => {
         <Stack.Screen name={routeName.login} component={LoginScreen} />
         <Stack.Screen name={routeName.profile} component={ProfileScreen} />
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 };

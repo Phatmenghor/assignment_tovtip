@@ -10,6 +10,7 @@ import {clearToken} from '../../utils/tokenManager';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {colors} from '../../constants/color';
 import {routeName} from '../../constants/routeName';
+import ShowToast from '../../components/ShowToast';
 
 const ProfileScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,6 +41,11 @@ const ProfileScreen: React.FC = () => {
           text: 'OK',
           onPress: async () => {
             await clearToken();
+            ShowToast(
+              'success',
+              'Log Out Successful',
+              'You have successfully logged out!',
+            );
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,

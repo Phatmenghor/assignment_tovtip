@@ -8,18 +8,30 @@ import {setToken} from '../../../utils/tokenManager';
 import {ApiError} from '../../../models/errorResponse';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {routeName} from '../../../constants/routeName';
+import {isValidEmail} from '../../../utils/stringUtils';
+import ShowToast from '../../../components/ShowToast';
 
 const EmailLogin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
   const navigation = useNavigation();
 
   async function onSubmid() {
-    setEmailError(null);
-    setPasswordError(null);
+    setEmailError(false);
+    setPasswordError(false);
+
+    if (email && !isValidEmail(email)) {
+      setEmailError(true);
+      ShowToast(
+        'error',
+        'Login Failed',
+        'You have entered an invalid email address.',
+      );
+      return;
+    }
 
     callToApi();
   }
@@ -28,8 +40,12 @@ const EmailLogin = () => {
     setIsLoading(true);
     try {
       const response = await loginWithEmail({email, password});
+      ShowToast(
+        'success',
+        'Login Successful',
+        'You have successfully logged in!',
+      );
       await setToken(response.data.access_token);
-
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -39,9 +55,11 @@ const EmailLogin = () => {
     } catch (error) {
       const responseError = error as ApiError;
       if (responseError.message.includes('Email does not exist')) {
-        setEmailError(responseError.message);
+        setEmailError(true);
+        ShowToast('error', 'Login Failed', `${responseError.message}`);
       } else if (responseError.message.includes('Incorrect password')) {
-        setPasswordError(responseError.message);
+        setPasswordError(true);
+        ShowToast('error', 'Login Failed', `${responseError.message}`);
       }
     }
     setIsLoading(false);

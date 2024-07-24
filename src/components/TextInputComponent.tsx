@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {HelperText, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../constants/color';
@@ -13,7 +13,7 @@ interface PasswordInputProps {
   label?: string;
   style?: object;
   type?: 'email' | 'password';
-  error?: string | null;
+  error?: boolean;
 }
 
 const TextInputComponent: React.FC<PasswordInputProps> = ({
@@ -22,7 +22,7 @@ const TextInputComponent: React.FC<PasswordInputProps> = ({
   label = 'Input',
   style,
   type = 'password',
-  error = null,
+  error = false,
 }) => {
   const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
 
@@ -78,12 +78,6 @@ const TextInputComponent: React.FC<PasswordInputProps> = ({
         }
         style={[styles.input, style]}
       />
-
-      {error && (
-        <HelperText type="error" visible={!!error} style={styles.errorText}>
-          {error}
-        </HelperText>
-      )}
     </View>
   );
 };

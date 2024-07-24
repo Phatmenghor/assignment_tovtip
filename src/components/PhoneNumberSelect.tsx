@@ -9,14 +9,13 @@ import {
 } from 'react-native';
 import CountryPicker from 'react-native-country-picker-modal';
 import {colors} from '../constants/color';
-import {HelperText} from 'react-native-paper';
 import {CountryModel} from '../constants/codeCountry';
 
 interface PhoneNumberSelectProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
-  error?: string | null;
+  error?: boolean;
   style?: object;
   selectedCountry: CountryModel;
   onSelectCountry: (country: CountryModel) => void;
@@ -26,7 +25,7 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
   value,
   onChangeText,
   placeholder = 'XXX XXX XXX XXX',
-  error = null,
+  error = false,
   style,
   selectedCountry,
   onSelectCountry,
@@ -96,12 +95,6 @@ const PhoneNumberSelect: React.FC<PhoneNumberSelectProps> = ({
         containerButtonStyle={styles.button}
         filterPlaceholder="Search..."
       />
-
-      {error && (
-        <HelperText type="error" visible={!!error} style={styles.errorText}>
-          {error}
-        </HelperText>
-      )}
     </View>
   );
 };
