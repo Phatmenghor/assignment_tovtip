@@ -9,6 +9,7 @@ import {User} from '../../models/apiResponse';
 import {clearToken} from '../../utils/tokenManager';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {colors} from '../../constants/color';
+import {routeName} from '../../constants/routeName';
 
 const ProfileScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,7 +43,7 @@ const ProfileScreen: React.FC = () => {
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,
-                routes: [{name: 'Login'}],
+                routes: [{name: routeName.login}],
               }),
             );
           },

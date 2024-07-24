@@ -9,6 +9,7 @@ import {setToken} from '../../../utils/tokenManager';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {ApiError} from '../../../models/errorResponse';
 import {countryCambodia, CountryModel} from '../../../constants/codeCountry';
+import {routeName} from '../../../constants/routeName';
 
 const PhoneLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -38,7 +39,7 @@ const PhoneLogin = () => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'Profile'}],
+          routes: [{name: routeName.profile}],
         }),
       );
     } catch (error) {

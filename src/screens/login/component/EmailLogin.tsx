@@ -7,6 +7,7 @@ import {loginWithEmail} from '../../../api/authService';
 import {setToken} from '../../../utils/tokenManager';
 import {ApiError} from '../../../models/errorResponse';
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {routeName} from '../../../constants/routeName';
 
 const EmailLogin = () => {
   const [email, setEmail] = useState<string>('');
@@ -28,10 +29,11 @@ const EmailLogin = () => {
     try {
       const response = await loginWithEmail({email, password});
       await setToken(response.data.access_token);
+
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'Profile'}],
+          routes: [{name: routeName.profile}],
         }),
       );
     } catch (error) {
